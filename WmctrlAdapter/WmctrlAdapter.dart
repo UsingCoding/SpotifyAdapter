@@ -60,7 +60,7 @@ class WmctrlAdapter implements WmctrlAdapterInterface
       result += applicationsList[searchPos];
       ++searchPos;
 
-      print(applicationsList[searchPos]);
+      // print(applicationsList[searchPos]);
     }
 
     return result.trim();

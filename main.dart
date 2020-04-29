@@ -8,11 +8,14 @@ class SpotifyControlCommand {
 	static const PLAY_PAUSE = '--play-pause';
 	static const NEXT = '--next';
 	static const PREV = '--prev';
+  static const GET_SONG = '--get-song';
 
 	final SpotifyAdapterInterface adapter;
 
-	SpotifyControlCommand(List<String> args): adapter = SpotifyAdapter()
-	{
+	SpotifyControlCommand(): adapter = SpotifyAdapter();
+
+  Future<void> execute(List<String> args) async
+  {
 		if (args.length < 1) {
 			exit(1);
 		}
@@ -27,10 +30,13 @@ class SpotifyControlCommand {
 			case PREV:
 				adapter.setPrevious();
 				break;
-		  	default:
+      case GET_SONG:
+        stdout.write(await adapter.getCurrentSong());
+        break;
+		  default:
 				adapter.playPause();
 		}
-	}
+  }
 }
 
-main(List<String> args) => SpotifyControlCommand(args);
+main(List<String> args) => SpotifyControlCommand().execute(args);
