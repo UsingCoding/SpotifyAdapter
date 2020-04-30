@@ -9,6 +9,7 @@ class SpotifyControlCommand {
 	static const NEXT = '--next';
 	static const PREV = '--prev';
   static const GET_SONG = '--get-song';
+  static const CATCH_SONG = '--catch-song';
 
 	final SpotifyAdapterInterface adapter;
 
@@ -32,6 +33,9 @@ class SpotifyControlCommand {
 				break;
       case GET_SONG:
         stdout.write(await adapter.getCurrentSong());
+        break;
+      case CATCH_SONG:
+        adapter.stopPlayingAfterSongChanged();
         break;
 		  default:
 				stdout.write(await adapter.getCurrentSong());
