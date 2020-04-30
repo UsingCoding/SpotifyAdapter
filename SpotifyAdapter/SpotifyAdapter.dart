@@ -4,6 +4,8 @@ import '../DBusAdapter/DBusAdapter.dart';
 import '../WmctrlAdapter/WmctrlAdapterInterface.dart';
 import '../WmctrlAdapter/WmctrlAdapter.dart';
 
+import 'dart:async';
+
 class SpotifyAdapter implements SpotifyAdapterInterface {
 
   static final APPLICATION_CLASS = 'spotify.Spotify';
@@ -63,5 +65,21 @@ class SpotifyAdapter implements SpotifyAdapterInterface {
     }
 
     return songName;
+  }
+
+  Future<void> stopPlayingAfterSongChanged() async
+  {
+    final songName = await getCurrentSong();
+
+    if (songName == 'Paused' || songName == 'Spotify not launched') return;
+
+    const oneSec = const Duration(seconds: 1);
+    new Timer.periodic(oneSec, (Timer t) async {
+      if (songName != await getCurrentSong())
+      {
+        pause();
+        t.cancel();
+      }
+    });
   }
 }

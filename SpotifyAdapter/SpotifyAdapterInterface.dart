@@ -5,4 +5,5 @@ class SpotifyAdapterInterface {
   Future<void> setNext() async {}
   Future<void> setPrevious() {}
   Future<String> getCurrentSong() async {}
+  Future<void> stopPlayingAfterSongChanged() async {}
 }
