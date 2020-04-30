@@ -34,7 +34,7 @@ class SpotifyControlCommand {
         stdout.write(await adapter.getCurrentSong());
         break;
 		  default:
-				adapter.playPause();
+				stdout.write(await adapter.getCurrentSong());
 		}
   }
 }

@@ -7,6 +7,7 @@ import '../WmctrlAdapter/WmctrlAdapter.dart';
 class SpotifyAdapter implements SpotifyAdapterInterface {
 
   static final APPLICATION_CLASS = 'spotify.Spotify';
+  static final SPOTIFY_FREE_TITLE = 'Spotify Free';
 
 	static const ADDRESS = 'org.mpris.MediaPlayer2.spotify';
 	static const INTERFACE = '/org/mpris/MediaPlayer2';
@@ -51,6 +52,12 @@ class SpotifyAdapter implements SpotifyAdapterInterface {
 
   Future<String> getCurrentSong() async
   {
-    return await wmctlAdapter.retrieveApplicationTitle(APPLICATION_CLASS);
+    final songName = await wmctlAdapter.retrieveApplicationTitle(APPLICATION_CLASS);
+    
+    if (songName == SPOTIFY_FREE_TITLE) {
+      return 'Paused';
+    }
+
+    return 'Spotify not launched';
   }
 }
