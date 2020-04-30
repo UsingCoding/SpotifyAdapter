@@ -11,14 +11,14 @@ class WmctrlAdapter implements WmctrlAdapterInterface
   Future<String> retrieveApplicationTitle(String applicationClass) async
   {
     final process = await Process.run(WMCTRL, [APPLICATIONS_LIST_ARGS]);
-    
+
     if (process.exitCode != 0)  return '';
 
     final applicationsList = process.stdout as String;
 
     int searchPos = applicationsList.indexOf(applicationClass);
 
-    if (searchPos == 0) 
+    if (searchPos == -1) 
     {
       return '' ;
     }

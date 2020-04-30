@@ -53,11 +53,15 @@ class SpotifyAdapter implements SpotifyAdapterInterface {
   Future<String> getCurrentSong() async
   {
     final songName = await wmctlAdapter.retrieveApplicationTitle(APPLICATION_CLASS);
-    
+
     if (songName == SPOTIFY_FREE_TITLE) {
       return 'Paused';
     }
 
-    return 'Spotify not launched';
+    if (songName == '') {
+      return 'Spotify not launched';
+    }
+
+    return songName;
   }
 }
